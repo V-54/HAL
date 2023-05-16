@@ -1,0 +1,7 @@
+loguru==0.7.0
+Pillow==9.5.0
+PyAutoGUI==0.9.53
+PyMsgBox==1.0.9
+pyTelegramBotAPI==4.11.0
+requests==2.30.0
+telebot==0.0.5
