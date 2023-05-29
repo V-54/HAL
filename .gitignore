@@ -1,0 +1,8 @@
+.gitignore
+.venv/
+Data/config.py
+Data/__pycache__/
+Data/image/screenshot.png
+handlers/__pycache__/
+__pycache__/
+Loging/*
