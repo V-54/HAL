@@ -6,9 +6,7 @@ from create_bot import bot
 from Data import data, config
 
 
-logger.add('Loging/admin_logging.log', format = '{time} {message}')
-
-admin = False
+logger.add('Log/admin_logging.log', format = '{time} {message}')
 
 
 def log_admin_success(message):
@@ -21,17 +19,20 @@ def log_admin_denied(message):
 
 
 def admin_chek(message):
-    global admin
     if message.chat.id == config.admin_chat_id:
         log_admin_success(message)
         admin = True
+        admin_keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        screen_btn=types.KeyboardButton('/screen')
+        back_btn = types.KeyboardButton('/Main_Menu')
+        admin_keyboard.add(screen_btn, back_btn)
+        bot.send_message(message.chat.id,data.TEXT_ASK,reply_markup=admin_keyboard)
     else:
         log_admin_denied(message)
 
-
 def send_screenshot(message):
-    global admin
-    if admin:
+    if message.chat.id == config.admin_chat_id:
+        logger.info(f'@{message.from_user.username} - creen send')
         screenshot = pyautogui.screenshot()
         screenshot.save('Data/image/screenshot.png')
         with open('Data/image/screenshot.png', 'rb') as photo:
@@ -40,12 +41,11 @@ def send_screenshot(message):
         log_admin_denied(message)
 
 # данные для доступа к панели администратора лежат в файле 
-#config.python_projects 
+# Data/config.py
 # нужно изменить данные на свои, 
 # чтобы бот выдал вам доступ к функционалу администратора
 
 def register_handlesrs_admin(bot):
     bot.register_message_handler(send_screenshot, commands = ['screen'])
     bot.register_message_handler(admin_chek, commands = ['admin'])
-    #bot.register_message_handler(, commands = [''])
     #bot.register_message_handler(, commands = [''])

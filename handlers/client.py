@@ -4,7 +4,7 @@ from loguru import logger
 from create_bot import bot
 from Data import data
 
-logger.add('Loging/users.log', format = '{time}  {level}  {message}',level = 'DEBUG')
+logger.add('Log/users.log', format = '{time}  {level}  {message}',level = 'DEBUG')
 
 def start_message(message):
     bot.delete_message(message.chat.id, message.message_id)
@@ -53,7 +53,7 @@ def send_sticker(message):
     bot.delete_message(message.chat.id, message.message_id)
     bot.send_sticker(message.chat.id,data.STICKER_ID)
 
-def print_rules(message):
+def print_about(message):
     bot.delete_message(message.chat.id, message.message_id)
     bot.send_message(message.chat.id,'🐍')
     bot.send_message(message.chat.id,data.TEXT_CREATOR)
@@ -61,6 +61,9 @@ def print_rules(message):
 def update_message(message):
     bot.send_message(message.chat.id,f'hi {message.from_user.username}')
     bot.send_message(message.chat.id,data.TEXT_UPDATE,parse_mode = 'html')
+
+def language(message):
+    pass
 
 def register_handlesrs_client(bot):
     bot.register_message_handler(start_message, commands = ['start'])
@@ -72,7 +75,7 @@ def register_handlesrs_client(bot):
     bot.register_message_handler(picture_1, commands = ['creation'])
     bot.register_message_handler(gif_1, commands = ['generator'])
     bot.register_message_handler(send_sticker, commands = ['sticker'])
-    bot.register_message_handler(print_rules, commands = ['creator'])
+    bot.register_message_handler(print_about, commands = ['creator'])
     bot.register_message_handler(update_message, commands = ['update'])
 
     #bot.register_message_handler(, commands = [''])

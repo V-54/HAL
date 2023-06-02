@@ -1,5 +1,7 @@
 BOT_VERSION = '0.5.0'
+
 TEXT_START=f"Hello <b>human</b>, im <b>HAL - {BOT_VERSION}</b>"
+
 TEXT_ASK = """
 choose the action you need 
 among the buttons 📟
@@ -20,6 +22,13 @@ List of main commands:
 /link - message with links
 /stiker - send a sticker
 /creator - about the creator
+"""
+
+TEXT_SETTINGS="""
+What do you want?
+/update - check the current HAL version
+/language - change language
+/admin - administrative panel
 """
 
 TEXT_GIF_COMMENT="IT RUN!"
