@@ -9,7 +9,7 @@ HAL 5000 is a Telegram bot that can perform various tasks such as searching for 
 To install the necessary packages, run the following command:
 
 ```
-pip install requirements.txt -r
+pip install -r requirements.txt
 ```
 
 Then, create a new bot in Telegram and obtain the API token. Add the token and your admin chat ID to the `config.py` file located in the `Data/` directory.
