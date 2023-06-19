@@ -1,9 +1,9 @@
-BOT_VERSION = '0.5.0'
+BOT_VERSION = '0.5.5'
 
 TEXT_START=f"Hello <b>human</b>, im <b>HAL - {BOT_VERSION}</b>"
 
 TEXT_ASK = """
-choose the action you need 
+Choose the action you need 
 among the buttons 📟
 """
 
@@ -34,8 +34,8 @@ What do you want?
 TEXT_GIF_COMMENT="IT RUN!"
 TEXT_PICTURE_COMMENT="This is how the code for this bot was written"
 
-TEXT_LINK="choise that url you want to go"
-TEXT_PICTURE="choise that picture you want to see"
+TEXT_LINK="Choise that url you want to go"
+TEXT_PICTURE="Choise that picture you want to see"
 
 TEXT_DICE="""
 You can roll some dices:
@@ -135,10 +135,12 @@ TEXT_ANSLOT="🎰"
 TEXT_ANBOWLING="🎳"
 TEXT_ANDART="🎯"
 
-TEXT_CREATOR="""
+TEXT_ABOUT="""
 Shalom
 My names is V, and i created this chatbot
 if you have a questions, you can text me @valens54
+Also you can see all source files on my GitHub
+https://github.com/V-54/HAL
 live long and prosper 🖖
 """
 TEXT_UNKNOWN="""I did not understand your request

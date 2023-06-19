@@ -165,9 +165,9 @@ def settings(message):
     admin_btn=types.KeyboardButton('/admin')
     language_btn=types.KeyboardButton('/language')
     update_btn=types.KeyboardButton('/update')
-    about_btn=types.KeyboardButton('/creator')
+    about_btn=types.KeyboardButton('/about')
     back_btn=types.KeyboardButton('/Main_Menu')
-    settings_keayboard.add(update_btn,language_btn,admin_btn,back_btn)
+    settings_keayboard.add(update_btn,language_btn,admin_btn,about_btn,back_btn)
     bot.send_message(message.chat.id, data.TEXT_SETTINGS,reply_markup=settings_keayboard)
 
 

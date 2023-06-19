@@ -1,52 +1,37 @@
-#import sqlite3 as sql
-#import mysql.connector as sql
 import pymysql
 from Data import config 
 
+user_language = 'en'
+user_language = 'ru'
 
 try:
-    #connection = pymysql.connect("Data/uesrs.db")
     connection = pymysql.connect(
     host="localhost",
     user=config.MySQL_db_user,
     password=config.MySQL_db_password,
-    db="Data/users_db"
+    database="HALmemory"
     )
-
-    def create_users_table():
-        with connection.cursor() as cursor:
-            create_table_query = """CREATE TABLE IF NOT EXISTS users (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            full_name TEXT,
-            name TEXT DEFAULT '@none',
-            telegram_id INT,
-            language TEXT DEFAULT 'en'
-            )"""
-            cursor.execute(create_table_query)
-            connection.commit()
-            print("DB CREATED")
 
     def add_user(full_name,name,telegram_id,language):
         with connection.cursor() as cursor:
-            query = f"INSERT INTO users (full_name, name, telegram_id, language) VALUE ('{full_name}', '{name}', {telegram_id}, '{language}')"            #cursor.execute(query, (full_name,name,telegram_id,language))
-            cursor.execute(query)
+            cursor.execute("SELECT COUNT(*) FROM users WHERE telegram_id = %s", (telegram_id,))
+            result=cursor.fetchone()
+            if result[0]==0:
+                query = f"INSERT INTO users (name, full_name, telegram_id, language) VALUE ('{full_name}', '{name}', {telegram_id}, '{language}')"
+                cursor.execute(query)
+                connection.commit()
+                print("User add in memory")
+            else:
+                print("I remember this user")
 
-        connection.commit()
+#    def check_user_language(message):
+#        with connection.cursor() as cursor:
+#            global user_language
+#            telegram_id = message.chat.id
+#            user_language = cursor.execute(f"SELECT language FROM users WHERE telegram_id = {telegram_id}")
+#            print(user_language)
+#            print(cursor.execute(f"SELECT language FROM users WHERE telegram_id = {telegram_id}"))
+
 except Exception as error:
     print("ERROR DB!")
     print(error)
-
-#def add_user(full_name,name,telegram_id,language):
-#    query = f"INSERT INTO users (full_name, name, telegram_id, language) VALUE ({full_name}, {name}, {telegram_id}, {language})"
-#    cursor.execute(query, (full_name,name,telegram_id,language))
-#    conn.commit()
-#    conn.close()
-
-
-#cursor.execute("""CREATE TABLE IF NOT EXISTS users(
-#    id INTEGER PRIMARY KEY,
-#    full_name TEXT,
-#    name TEXT DEFAULT '@none',
-#    telegram_id INTEGER,
-#    language TEXT DEFAULT 'en'
-#    )""")

@@ -5,21 +5,23 @@ from create_bot import bot
 from Data import data
 import base
 
+
 logger.add('Log/users.log', format = '{time}  {level}  {message}',level = 'DEBUG')
 
 def start_message(message):
     bot.delete_message(message.chat.id, message.message_id)
     bot.send_message(message.chat.id,'🤖')
     starting_keyboard=types.ReplyKeyboardMarkup(resize_keyboard=True)
-    #reg_button = types.KeyboardButton(text="Отправить номер телефона", 
+    #reg_button = types.KeyboardButton(text="Send phone number", 
     #request_contact=True)
     btn0=types.KeyboardButton('/Main_Menu')
     starting_keyboard.add(btn0)
     bot.send_message(message.chat.id,data.TEXT_START,
             reply_markup=starting_keyboard,parse_mode='html')
 # сбор метрики пользователя (кто запустил бота) 
-    logger.info(f'id {message.from_user.id} = {message.from_user.full_name} - @{message.from_user.username}')
-   # base.add_user(message.from_user.full_name,message.from_user.username,message.message.chat.id,'ru')
+    logger.info(f'id {message.from_user.id} = {message.from_user.full_name} - @{message.from_user.username} start bot')
+# добавение пользователя в базу HALmemory для хранения данных настроек
+    base.add_user(message.from_user.username, message.from_user.full_name, message.chat.id, 'ru')
 
 def help(message):
     bot.delete_message(message.chat.id, message.message_id)
@@ -66,14 +68,15 @@ def send_sticker(message):
 def print_about(message):
     bot.delete_message(message.chat.id, message.message_id)
     bot.send_message(message.chat.id,'🐍')
-    bot.send_message(message.chat.id,data.TEXT_CREATOR)
+    bot.send_message(message.chat.id,data.TEXT_ABOUT)
 
 def update_message(message):
     bot.send_message(message.chat.id,f'hi {message.from_user.username}')
     bot.send_message(message.chat.id,data.TEXT_UPDATE,parse_mode = 'html')
 
 def language(message):
-    bot.send_message(message.chat.id,"eng")
+    bot.send_message(message.chat.id,"Now wikipedia language is 'RU'")
+
 
 def register_handlesrs_client(bot):
     bot.register_message_handler(start_message, commands = ['start'])
@@ -85,8 +88,8 @@ def register_handlesrs_client(bot):
     bot.register_message_handler(picture_1, commands = ['creation'])
     bot.register_message_handler(gif_1, commands = ['generator'])
     bot.register_message_handler(send_sticker, commands = ['sticker'])
-    bot.register_message_handler(print_about, commands = ['creator'])
+    bot.register_message_handler(print_about, commands = ['about'])
     bot.register_message_handler(update_message, commands = ['update'])
     bot.register_message_handler(delete_message, commands = ['delete'])
-
+    bot.register_message_handler(language, commands = ['language'])
     #bot.register_message_handler(, commands = [''])

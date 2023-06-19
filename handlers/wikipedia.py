@@ -2,8 +2,10 @@ import wikipedia, re
 
 from create_bot import bot
 from Data import data
+import base
 
-wikipedia.set_lang("ru")
+
+wikipedia.set_lang(base.user_language)
 def getwiki(s):
     try:
         ny = wikipedia.page(s)

@@ -6,7 +6,7 @@ from create_bot import bot
 from Data import data, config
 
 
-logger.add('Log/admin_logging.log', format = '{time} {message}')
+logger.add('Log/admin.log', format = '{time} {message}')
 
 
 def log_admin_success(message):
