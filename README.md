@@ -18,6 +18,12 @@ Then, create a new bot in Telegram and obtain the API token. Add the token and y
 ```
 # you bot token from @BotFather
 TOKEN = 'you bot token'
+
+# that bot version using MySQL db for working
+MySQL_db_name='HALmemory'
+MySQL_db_user='root'
+MySQL_db_password='you_password'
+
 # you ID
 admin_chat_id = 123456789
 ```

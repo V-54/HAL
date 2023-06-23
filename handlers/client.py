@@ -67,7 +67,6 @@ def send_sticker(message):
 
 def print_about(message):
     bot.delete_message(message.chat.id, message.message_id)
-    bot.send_message(message.chat.id,'🐍')
     bot.send_message(message.chat.id,data.TEXT_ABOUT)
 
 def update_message(message):
