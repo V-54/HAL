@@ -1,8 +1,8 @@
-## HAL 5000
+## HAL 5500
 
 ### Description
 
-HAL 5000 is a Telegram bot that can perform various tasks such as searching for information on Wikipedia, rolling dice, sending images and stickers, and providing information about the creator of the bot.
+HAL 5500 is a Telegram bot that can perform various tasks such as searching for information on Wikipedia, rolling dice, sending images and stickers, and providing information about the creator of the bot.
 
 ## INSTALLATION
 
@@ -53,5 +53,4 @@ So the bot listens for incoming messages and responds accordingly.
 
 - **Send stickers** - /stiker
 
-- **Display information about the creator of the bot** - /creator
-
+- **Display information about the creator of the bot** - /about

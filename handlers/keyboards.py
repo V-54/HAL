@@ -2,6 +2,7 @@ from telebot import types
 
 from create_bot import bot
 from Data import data
+from base import check_user_language
 
 def main_keyboard_set(message):
     bot.delete_message(message.chat.id, message.message_id)
@@ -16,7 +17,6 @@ def main_keyboard_set(message):
                       sticker_btn,settings_btn)
     bot.send_message(message.chat.id,data.TEXT_ASK,reply_markup=main_keyboard)
 
-
 def anima_list(message):
     bot.delete_message(message.chat.id, message.message_id)
     bot.send_message(message.chat.id,data.TEXT_ANIMA)
@@ -29,7 +29,6 @@ def anima_list(message):
     anima_keyboard.add(andice_btn,anslot_btn,anbowling_btn,andart_btn,back_btn)
     bot.send_message(message.chat.id, data.TEXT_ASK,reply_markup=anima_keyboard)
 
-
 def send_picture(message):
     bot.delete_message(message.chat.id, message.message_id)
     pictire_list_markup=types.ReplyKeyboardMarkup(resize_keyboard=True)
@@ -39,7 +38,6 @@ def send_picture(message):
     pictire_list_markup.add(send_picture_btn,send_gif_btn,back_btn)
     bot.send_message(message.chat.id,
             data.TEXT_LINK,reply_markup=pictire_list_markup)
-
 
 def send_link(message):
     bot.delete_message(message.chat.id, message.message_id)
@@ -158,7 +156,7 @@ def roll_dice_20(message):
     d20_keyboard.add(c1_d20,c2_d20,c3_d20,c4_d20,c5_d20,c6_d20,dice_list,back_btn)
     bot.send_message(message.chat.id, data.TEXT_ASK,reply_markup=d20_keyboard)
 
-
+#___________SETTINGS______________________
 def settings(message):
     bot.delete_message(message.chat.id, message.message_id)
     settings_keayboard=types.ReplyKeyboardMarkup(resize_keyboard=True)
@@ -170,6 +168,16 @@ def settings(message):
     settings_keayboard.add(update_btn,language_btn,admin_btn,about_btn,back_btn)
     bot.send_message(message.chat.id, data.TEXT_SETTINGS,reply_markup=settings_keayboard)
 
+def language_keyboard_set(message):
+    bot.delete_message(message.chat.id, message.message_id)
+    bot.send_message(message.chat.id,f"Now wikipedia language is {check_user_language(message)}")
+    language_keayboard=types.ReplyKeyboardMarkup(resize_keyboard=True)
+    Ru_language_btn=types.KeyboardButton('/RU')
+    En_language_btn=types.KeyboardButton('/EN')
+    settings_btn=types.KeyboardButton('/settings')
+    back_btn=types.KeyboardButton('/Main_Menu')
+    language_keayboard.add(Ru_language_btn,En_language_btn,settings_btn,back_btn)
+    bot.send_message(message.chat.id,f"Do you want to chang it?",reply_markup=language_keayboard)
 
 def register_keyboards(bot):
     bot.register_message_handler(main_keyboard_set, commands = ['Main_Menu'])
@@ -184,5 +192,5 @@ def register_keyboards(bot):
     bot.register_message_handler(roll_dice_12, commands = ['rd12'])
     bot.register_message_handler(roll_dice_20, commands = ['rd20'])
     bot.register_message_handler(settings, commands = ['settings'])
-
+    bot.register_message_handler(language_keyboard_set, commands = ['language'])
     #bot.register_message_handler(, commands = [''])

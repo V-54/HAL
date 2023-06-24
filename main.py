@@ -1,6 +1,7 @@
 from create_bot import bot
-from handlers import client, dice, admin, wikipedia, keyboards
+from handlers import client, dice, admin, keyboards
 import base
+
 def main():
     print('Hal starting')
 #    base.create_user_db()
@@ -8,7 +9,7 @@ def main():
     admin.register_handlesrs_admin(bot)
     client.register_handlesrs_client(bot)
     keyboards.register_keyboards(bot)
-    wikipedia.register_handlesrs_wiki(bot)
+    base.register_handlesrs_wiki(bot)
 
     bot.polling(none_stop=True, interval=0)
 
