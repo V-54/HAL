@@ -4,7 +4,6 @@ import base
 
 def main():
     print('Hal starting')
-#    base.create_user_db()
     dice.register_handlesrs_dice(bot)
     admin.register_handlesrs_admin(bot)
     client.register_handlesrs_client(bot)

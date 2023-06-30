@@ -12,6 +12,7 @@ def start_message(message):
     bot.delete_message(message.chat.id, message.message_id)
     bot.send_message(message.chat.id,'🤖')
     starting_keyboard=types.ReplyKeyboardMarkup(resize_keyboard=True)
+    bot.send_message(message.chat.id,data.TEXT_WARNING_FOR_USERS, parse_mode='markdown')
     #reg_button = types.KeyboardButton(text="Send phone number", 
     #request_contact=True)
     btn0=types.KeyboardButton('/Main_Menu')

@@ -1,5 +1,6 @@
 .gitignore
 .venv/
+.vscode
 Data/config.py
 Data/__pycache__/
 Data/image/screenshot.png

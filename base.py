@@ -42,7 +42,6 @@ try:
                 wikipedia.set_lang(user_language)
                 return user_language
 
-
     def change_user_language(message, laguage):
         global user_language
         user_language = laguage

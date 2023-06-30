@@ -7,6 +7,15 @@ Choose the action you need
 among the buttons 📟
 """
 
+TEXT_WARNING_FOR_USERS="""
+*We warn you!* 
+That by using the bot, 
+you *automatically  agree* to the 
+*user agreement on the collection and 
+storage of personal information* 
+necessary for the correct operation of the bot.
+"""
+
 TEXT_UPDATE=f"""
 im update!
 now version - <b>{BOT_VERSION}</b>
