@@ -3,7 +3,7 @@ from loguru import logger
 
 from create_bot import bot
 from Data import data
-from base import check_user_language, add_user, change_user_language, user_language
+from base import check_user_language, add_user, change_user_language
 
 logger.add('Log/users.log', format = '{time}  {level}  {message}',level = 'DEBUG')
 
@@ -22,7 +22,7 @@ def start_message(message):
 # сбор метрики пользователя (кто запустил бота) 
     logger.info(f'id {message.from_user.id} = {message.from_user.full_name} - @{message.from_user.username} start bot')
 # добавение пользователя в базу HALmemory для хранения данных настроек
-    add_user(message.from_user.username, message.from_user.full_name, message.chat.id, 'ru')
+    add_user(message.from_user.username, message.from_user.full_name, message.chat.id, 'ru', 250)
 
 def help(message):
     bot.delete_message(message.chat.id, message.message_id)
@@ -89,10 +89,10 @@ def language_En(message):
 def register_handlesrs_client(bot):
     bot.register_message_handler(start_message, commands = ['start'])
     bot.register_message_handler(help, commands = ['help'])
-    bot.register_message_handler(andice, commands = ['andice'])
-    bot.register_message_handler(anslot, commands = ['anslot'])
-    bot.register_message_handler(anbowling, commands = ['anbowling'])
-    bot.register_message_handler(andart, commands = ['andart'])
+    bot.register_message_handler(andice, commands = ['dice'])
+    bot.register_message_handler(anslot, commands = ['slot'])
+    bot.register_message_handler(anbowling, commands = ['bowling'])
+    bot.register_message_handler(andart, commands = ['dart'])
     bot.register_message_handler(picture_1, commands = ['creation'])
     bot.register_message_handler(gif_1, commands = ['generator'])
     bot.register_message_handler(send_sticker, commands = ['sticker'])

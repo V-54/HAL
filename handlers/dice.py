@@ -29,6 +29,7 @@ def roll_dice(message):
             bot.send_message(message.chat.id,
                     str(i)+f'{data.TEXT_RD}{dice_facet} =  {roll_dice}')
         lock.release()
+        time.sleep(2)
     except:
         #чтобы не было ошибок при спаме
          # бот ждет, пока прошлая команда завершится

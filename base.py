@@ -15,17 +15,39 @@ try:
     database="HALmemory"
     )
 
-    def add_user(full_name,name,telegram_id,language):
+    def check_score(message):
         with connection.cursor() as cursor:
-            cursor.execute("SELECT COUNT(*) FROM users WHERE telegram_id = %s", (telegram_id,))
+            cursor.execute(f"SELECT score FROM users WHERE telegram_id = {message.chat.id}")
+            result = cursor.fetchone()
+            return result[0] if result else None
+
+    def update_score(message,score):
+        with connection.cursor() as cursor:
+            cursor.execute(f"UPDATE users SET score = '{score}' WHERE telegram_id = {message.chat.id}")
+            connection.commit()
+
+    def check_bet(message):
+        with connection.cursor() as cursor:
+            cursor.execute(f"SELECT bet FROM users WHERE telegram_id = {message.chat.id}")
+            result = cursor.fetchone()
+            return result[0] if result else None
+
+    def update_bet(message, bet):
+        with connection.cursor() as cursor:
+            cursor.execute(f"UPDATE users SET bet = '{bet}' WHERE telegram_id = {message.chat.id}")
+            connection.commit()
+
+    def add_user(full_name,name,telegram_id,language,score):
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT COUNT(*) FROM users WHERE telegram_id = %s", (telegram_id))
             result=cursor.fetchone()
             if result[0]==0:
-                query = f"INSERT INTO users (name, full_name, telegram_id, language) VALUE ('{full_name}', '{name}', {telegram_id}, '{language}')"
-                cursor.execute(query)
+                cursor.execute(f"INSERT INTO users (name, full_name, telegram_id, language, score) VALUE ('{full_name}', '{name}', {telegram_id}, '{language}', '{score}')")
                 connection.commit()
                 print("User add in memory")
             else:
                 print("I remember this user")
+        connection.commit()
 
     def check_user_language(message):
         global user_language
@@ -48,8 +70,8 @@ try:
         telegram_id = message.chat.id
         with connection.cursor() as cursor:
             cursor.execute(f"UPDATE users SET language = '{laguage}' WHERE telegram_id = {telegram_id}")
-            wikipedia.set_lang(user_language)
             connection.commit()
+            wikipedia.set_lang(user_language)
 
     def getwiki(s):
         try:

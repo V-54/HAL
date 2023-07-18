@@ -40,6 +40,21 @@ What do you want?
 /admin - administrative panel
 """
 
+TEXT_BlackJack_START="""
+Weclome to BlackJack!
+/score - check you score
+/Play_BJ - play
+/Bet - change bet
+"""
+
+TEXT_BlackJack_BET="""
+wou want update bet?
+/-100
+/-50
+/+50
+/+100
+"""
+
 TEXT_GIF_COMMENT="IT RUN!"
 TEXT_PICTURE_COMMENT="This is how the code for this bot was written"
 
@@ -133,11 +148,12 @@ DICES_LIST=['1d4','2d4','3d4','4d4','5d4','6d4','1d8','2d8','3d8','4d8','5d8',
 TEXT_RD=" you roll d"
 
 TEXT_ANIMA="""
-Animation commands:
-/andice - roll dice (6)
-/anslot - spin slot
-/anbowling - bowling
-/andart - shooting a dart
+commands:
+/dice - roll dice (6)
+/slot - spin slot
+/bowling - bowling
+/dart - shooting a dart
+/BlackJack - start BlackJack
 """
 TEXT_ANDICE="🎲"
 TEXT_ANSLOT="🎰"

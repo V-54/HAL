@@ -7,8 +7,8 @@ from base import check_user_language
 def main_keyboard_set(message):
     bot.delete_message(message.chat.id, message.message_id)
     main_keyboard=types.ReplyKeyboardMarkup(resize_keyboard=True)
-    dice_btn = types.KeyboardButton('/dice')
-    anima_btn = types.KeyboardButton('/anima')
+    dice_btn = types.KeyboardButton('/dices')
+    anima_btn = types.KeyboardButton('/games')
     picture_btn = types.KeyboardButton('/picture')
     link_btn = types.KeyboardButton('/link')
     sticker_btn = types.KeyboardButton('/sticker')
@@ -17,18 +17,46 @@ def main_keyboard_set(message):
                       sticker_btn,settings_btn)
     bot.send_message(message.chat.id,data.TEXT_ASK,reply_markup=main_keyboard)
 
-def anima_list(message):
+def games_list(message):
     bot.delete_message(message.chat.id, message.message_id)
     bot.send_message(message.chat.id,data.TEXT_ANIMA)
     anima_keyboard=types.ReplyKeyboardMarkup(resize_keyboard=True)
-    andice_btn=types.KeyboardButton('/andice')
-    anslot_btn=types.KeyboardButton('/anslot')
-    anbowling_btn=types.KeyboardButton('/anbowling')
-    andart_btn=types.KeyboardButton('/andart')
+    andice_btn=types.KeyboardButton('/dice')
+    anslot_btn=types.KeyboardButton('/slot')
+    anbowling_btn=types.KeyboardButton('/bowling')
+    andart_btn=types.KeyboardButton('/dart')
+    blackjack_btn=types.KeyboardButton('/BlackJack')
     back_btn=types.KeyboardButton('/Main_Menu')
-    anima_keyboard.add(andice_btn,anslot_btn,anbowling_btn,andart_btn,back_btn)
+    anima_keyboard.add(andice_btn,anslot_btn,anbowling_btn,
+                       andart_btn,blackjack_btn,back_btn)
     bot.send_message(message.chat.id, data.TEXT_ASK,reply_markup=anima_keyboard)
 
+def blackjack_keyboard_set(message):
+    bot.delete_message(message.chat.id, message.message_id)
+    blackjack_keyboard=types.ReplyKeyboardMarkup(resize_keyboard=True)
+    score_btn=types.KeyboardButton('/score')
+    Play_BJ_btn=types.KeyboardButton('/PlayBJ')
+    Bet_btn=types.KeyboardButton('/Bet')
+    back_games_btn=types.KeyboardButton('/games')
+    back_btn=types.KeyboardButton('/Main_Menu')
+    blackjack_keyboard.add(score_btn,Play_BJ_btn,Bet_btn,back_games_btn,back_btn)
+    bot.send_message(message.chat.id,
+                    data.TEXT_BlackJack_START,reply_markup=blackjack_keyboard)
+
+def blackjack_bet_keyboard_set(message):
+    bot.delete_message(message.chat.id, message.message_id)
+    blackjack_bet_keyboard=types.ReplyKeyboardMarkup(resize_keyboard=True)
+    m100_btn=types.KeyboardButton('/-100')
+    m50_btn=types.KeyboardButton('/-50')
+    p50_btn=types.KeyboardButton('/+50')
+    p100_btn=types.KeyboardButton('/+100')
+    back_BJ_btn=types.KeyboardButton('/BlackJack')
+    back_games_btn=types.KeyboardButton('/games')
+    back_btn=types.KeyboardButton('/Main_Menu')
+    blackjack_bet_keyboard.add(m100_btn,m50_btn,p50_btn,p100_btn,back_BJ_btn,back_games_btn,back_btn)
+    bot.send_message(message.chat.id,
+                     data.TEXT_BlackJack_BET,reply_markup=blackjack_bet_keyboard)
+    
 def send_picture(message):
     bot.delete_message(message.chat.id, message.message_id)
     pictire_list_markup=types.ReplyKeyboardMarkup(resize_keyboard=True)
@@ -47,8 +75,8 @@ def send_link(message):
     send_link_gif_btn=types.InlineKeyboardButton('manul generator',
             url=data.URL_GIF)
     link_list_markup.add(send_link_picture_btn,send_link_gif_btn)
-    bot.send_message(message.chat.id,data.TEXT_PICTURE_COMMENT,
-            reply_markup=link_list_markup)
+    bot.send_message(message.chat.id,
+                     data.TEXT_PICTURE_COMMENT,reply_markup=link_list_markup)
     
 #___________DICES______________________
 
@@ -170,21 +198,25 @@ def settings(message):
 
 def language_keyboard_set(message):
     bot.delete_message(message.chat.id, message.message_id)
-    bot.send_message(message.chat.id,f"Now wikipedia language is {check_user_language(message)}")
+    bot.send_message(message.chat.id,
+                     f"Now wikipedia language is {check_user_language(message)}")
     language_keayboard=types.ReplyKeyboardMarkup(resize_keyboard=True)
     Ru_language_btn=types.KeyboardButton('/RU')
     En_language_btn=types.KeyboardButton('/EN')
     settings_btn=types.KeyboardButton('/settings')
     back_btn=types.KeyboardButton('/Main_Menu')
     language_keayboard.add(Ru_language_btn,En_language_btn,settings_btn,back_btn)
-    bot.send_message(message.chat.id,f"Do you want to chang it?",reply_markup=language_keayboard)
+    bot.send_message(message.chat.id,
+                     f"Do you want to chang it?",reply_markup=language_keayboard)
 
 def register_keyboards(bot):
     bot.register_message_handler(main_keyboard_set, commands = ['Main_Menu'])
-    bot.register_message_handler(anima_list, commands = ['anima'])
+    bot.register_message_handler(games_list, commands = ['games'])
+    bot.register_message_handler(blackjack_keyboard_set, commands = ['BlackJack'])
+    bot.register_message_handler(blackjack_bet_keyboard_set, commands = ['Bet'])
     bot.register_message_handler(send_picture, commands = ['picture'])
     bot.register_message_handler(send_link, commands = ['link'])
-    bot.register_message_handler(dices, commands = ['dice'])
+    bot.register_message_handler(dices, commands = ['dices'])
     bot.register_message_handler(roll_dice_4, commands = ['rd4'])
     bot.register_message_handler(roll_dice_6, commands = ['rd6'])
     bot.register_message_handler(roll_dice_8, commands = ['rd8'])
