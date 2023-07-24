@@ -63,13 +63,14 @@ def dealer_turn(dealer_hand, cards):
         return False, dealer_hand, cards
 
 def check_winer(dealer_hand, you_hand, message, cards, score,bet):
-    if get_hand_val(you_hand) ==21 and get_hand_val(dealer_hand) == 21:
+    if get_hand_val(you_hand) == 21 and get_hand_val(dealer_hand) == 21:
         bot.send_message(message.chat.id,"<b>Tie!</b>", parse_mode = 'html')
-    elif get_hand_val(you_hand) == 21 and any(card[0] == 'A' for card in you_hand): # check
+    elif get_hand_val(you_hand) == 21 and any(card[0] == 'A' for card in you_hand):
         bot.send_message(message.chat.id,"<b>You</b> has <b>blackjack</b>. You wins!", parse_mode = 'html')
         score += bet*3
         update_score(message, score)
-    elif get_hand_val(dealer_hand) and any(card[0] == 'A' for card in dealer_hand) == 21: # check
+        bot.send_message(message.chat.id,"💰")
+    elif get_hand_val(dealer_hand) == 21 and any(card[0] == 'A' for card in dealer_hand): 
         score -= bet*3
         update_score(message, score)
         bot.send_message(message.chat.id,"<b>Dealer</b> has <b>blackjack</b>. Dealer wins.", parse_mode = 'html')
@@ -91,43 +92,44 @@ def format_cards(cards):
 def check_player_score(message):
     score = check_score(message)
     bot.delete_message(message.chat.id, message.message_id)
-    bot.send_message(message.chat.id,f"You have <b>{score}$</b>", parse_mode='html')
+    bot.send_message(message.chat.id,f"You have <b>{score} $</b>", parse_mode='html')
 
 # def check_player_bet(message):
 #     bet = check_bet(message)
 #     bot.delete_message(message.chat.id, message.message_id)
 #     bot.send_message(message.chat.id,f"You bet = <b>{bet}$</b>", parse_mode='html')
 
+# TODO переписать алгоритм изменения ставки на универсальный
 def plus_50_bet(message):
     bet = check_bet(message) + 50
     bot.delete_message(message.chat.id, message.message_id)
     update_bet(message,bet)
-    bot.send_message(message.chat.id,f"You bet = <b>{check_bet(message)}$</b>", parse_mode='html')
+    bot.send_message(message.chat.id,f"You bet = <b>{check_bet(message)} 🫥</b>", parse_mode='html')
 
 def plus_100_bet(message):
     bet = check_bet(message) + 100
     bot.delete_message(message.chat.id, message.message_id)
     update_bet(message,bet)
-    bot.send_message(message.chat.id,f"You bet = <b>{check_bet(message)}$</b>", parse_mode='html')
+    bot.send_message(message.chat.id,f"You bet = <b>{check_bet(message)} 🫥</b>", parse_mode='html')
 
 def minus_50_bet(message):
     bet = check_bet(message) - 50
     bot.delete_message(message.chat.id, message.message_id)
     update_bet(message,bet)
-    bot.send_message(message.chat.id,f"You bet = <b>{check_bet(message)}$</b>", parse_mode='html')
+    bot.send_message(message.chat.id,f"You bet = <b>{check_bet(message)} 🫥</b>", parse_mode='html')
 
 def minus_100_bet(message):
     bet = check_bet(message) - 100
     bot.delete_message(message.chat.id, message.message_id)
     update_bet(message,bet)
-    bot.send_message(message.chat.id,f"You bet = <b>{check_bet(message)}$</b>", parse_mode='html')
+    bot.send_message(message.chat.id,f"You bet = <b>{check_bet(message)} 🫥</b>", parse_mode='html')
 
 
 def play_blackjack(message):
     bot.delete_message(message.chat.id, message.message_id)
     score = check_score(message)
     bet = check_bet(message)
-    if bet <=0 or bet > score:
+    if bet < 0 or bet > score:
         bot.send_message(message.chat.id,'Please, change you bet to start')
     else:
         if score >0:
@@ -138,16 +140,19 @@ def play_blackjack(message):
 <b>Dealer</b> hand - {format_cards(dealer_hand)} = <b>{get_hand_val(dealer_hand)}</b>
 <b>You</b>    hand - {format_cards(you_hand)} = <b>{get_hand_val(you_hand)}</b>
 
-starting score - <b>{score}</b>
-Bet - <b>{bet}</b>
+starting score - <b>{score} $</b>
+Bet - <b>{bet} 🫥</b>
             """, parse_mode = 'html')
             check_winer(dealer_hand,you_hand,message, cards, score, bet)
             time.sleep(3)
-        else:
+
+        elif score <=0:
             bot.send_message(message.chat.id,"You no hawe chips for playing \n Please wait")
             time.sleep(10)
             score = 100
             update_score(message, score)
+            bot.send_message(message.chat.id,'💸')
+            bot.send_message(message.chat.id,"+100 You agan can play!")
 
 def register_handlers_blackjack(bot):
     bot.register_message_handler(play_blackjack, commands = ['PlayBJ'])

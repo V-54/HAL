@@ -19,7 +19,7 @@ def log_admin_denied(message):
 
 
 def admin_chek(message):
-    if message.chat.id == config.admin_chat_id or message.chat.id == config.second_admin_id:
+    if message.chat.id == config.admin_chat_id:
         log_admin_success(message)
         admin_keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
         screen_btn=types.KeyboardButton('/screen')

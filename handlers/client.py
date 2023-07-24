@@ -1,9 +1,10 @@
+import telebot
 from telebot import types
 from loguru import logger
 
 from create_bot import bot
 from Data import data
-from base import check_user_language, add_user, change_user_language
+from base import check_user_language, add_user, change_user_language, user_language
 
 logger.add('Log/users.log', format = '{time}  {level}  {message}',level = 'DEBUG')
 
@@ -17,7 +18,7 @@ def start_message(message):
     #request_contact=True)
     btn0=types.KeyboardButton('/Main_Menu')
     starting_keyboard.add(btn0)
-    bot.send_message(message.chat.id,data.TEXT_START,
+    bot.send_message(message.chat.id,f"Hello <b>{message.from_user.username}</b> im <b>HAL</b>",
             reply_markup=starting_keyboard,parse_mode='html')
 # сбор метрики пользователя (кто запустил бота) 
     logger.info(f'id {message.from_user.id} = {message.from_user.full_name} - @{message.from_user.username} start bot')
@@ -38,7 +39,7 @@ def delete_message(message):
 
 def andice(message):
     bot.delete_message(message.chat.id, message.message_id)
-    bot.send_dice(message.chat.id,data.TEXT_ANDICE)
+    bot.send_dice(message.chat.id,"🎲")
 
 def anslot(message):
     bot.delete_message(message.chat.id, message.message_id)
@@ -68,7 +69,10 @@ def send_sticker(message):
 
 def print_about(message):
     bot.delete_message(message.chat.id, message.message_id)
-    bot.send_message(message.chat.id,data.TEXT_ABOUT)
+    about_link_keyboard = types.InlineKeyboardMarkup()
+    url_btn = types.InlineKeyboardButton(text="Open GitHub",url="https://github.com/V-54/HAL")
+    about_link_keyboard.add(url_btn)
+    bot.send_message(message.chat.id,data.TEXT_ABOUT,reply_markup=about_link_keyboard)
 
 def update_message(message):
     bot.send_message(message.chat.id,f'hi {message.from_user.username}')

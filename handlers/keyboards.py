@@ -2,7 +2,7 @@ from telebot import types
 
 from create_bot import bot
 from Data import data
-from base import check_user_language
+from base import check_user_language, check_bet
 
 def main_keyboard_set(message):
     bot.delete_message(message.chat.id, message.message_id)
@@ -31,6 +31,7 @@ def games_list(message):
                        andart_btn,blackjack_btn,back_btn)
     bot.send_message(message.chat.id, data.TEXT_ASK,reply_markup=anima_keyboard)
 
+#_____________________BlackJack_______________________
 def blackjack_keyboard_set(message):
     bot.delete_message(message.chat.id, message.message_id)
     blackjack_keyboard=types.ReplyKeyboardMarkup(resize_keyboard=True)
@@ -54,6 +55,7 @@ def blackjack_bet_keyboard_set(message):
     back_games_btn=types.KeyboardButton('/games')
     back_btn=types.KeyboardButton('/Main_Menu')
     blackjack_bet_keyboard.add(m100_btn,m50_btn,p50_btn,p100_btn,back_BJ_btn,back_games_btn,back_btn)
+    bot.send_message(message.chat.id,f"Now you bet = <b>{check_bet(message)} 🫥</b>", parse_mode="html")
     bot.send_message(message.chat.id,
                      data.TEXT_BlackJack_BET,reply_markup=blackjack_bet_keyboard)
     
@@ -105,7 +107,7 @@ def roll_dice_4(message):
     c5_d4=types.KeyboardButton('/5d4')
     c6_d4=types.KeyboardButton('/6d4')
     back_btn=types.KeyboardButton('/Main_Menu')
-    dice_list=types.KeyboardButton('/dice')
+    dice_list=types.KeyboardButton('/dices')
     d4_keyboard.add(c1_d4,c2_d4,c3_d4,c4_d4,c5_d4,c6_d4,dice_list,back_btn)
     bot.send_message(message.chat.id, data.TEXT_ASK,reply_markup=d4_keyboard)
 
@@ -120,7 +122,7 @@ def roll_dice_6(message):
     c5_d6=types.KeyboardButton('/5d6')
     c6_d6=types.KeyboardButton('/6d6')
     back_btn=types.KeyboardButton('/Main_Menu')
-    dice_list=types.KeyboardButton('/dice')
+    dice_list=types.KeyboardButton('/dices')
     d6_keyboard.add(c1_d6,c2_d6,c3_d6,c4_d6,c5_d6,c6_d6,dice_list,back_btn)
     bot.send_message(message.chat.id, data.TEXT_ASK,reply_markup=d6_keyboard)
 
@@ -135,7 +137,7 @@ def roll_dice_8(message):
     c5_d8=types.KeyboardButton('/5d8')
     c6_d8=types.KeyboardButton('/6d8')
     back_btn=types.KeyboardButton('/Main_Menu')
-    dice_list=types.KeyboardButton('/dice')
+    dice_list=types.KeyboardButton('/dices')
     d8_keyboard.add(c1_d8,c2_d8,c3_d8,c4_d8,c5_d8,c6_d8,dice_list,back_btn)
     bot.send_message(message.chat.id, data.TEXT_ASK,reply_markup=d8_keyboard)
 
@@ -150,7 +152,7 @@ def roll_dice_10(message):
     c5_d10=types.KeyboardButton('/5d10')
     c6_d10=types.KeyboardButton('/6d10')
     back_btn=types.KeyboardButton('/Main_Menu')
-    dice_list=types.KeyboardButton('/dice')
+    dice_list=types.KeyboardButton('/dices')
     d10_keyboard.add(c1_d10,c2_d10,c3_d10,c4_d10,c5_d10,c6_d10,dice_list,back_btn)
     bot.send_message(message.chat.id, data.TEXT_ASK,reply_markup=d10_keyboard)
 
@@ -165,7 +167,7 @@ def roll_dice_12(message):
     c5_d12=types.KeyboardButton('/5d12')
     c6_d12=types.KeyboardButton('/6d12')
     back_btn=types.KeyboardButton('/Main_Menu')
-    dice_list=types.KeyboardButton('/dice')
+    dice_list=types.KeyboardButton('/dices')
     d12_keyboard.add(c1_d12,c2_d12,c3_d12,c4_d12,c5_d12,c6_d12,dice_list,back_btn)
     bot.send_message(message.chat.id, data.TEXT_ASK,reply_markup=d12_keyboard)
 
@@ -180,7 +182,7 @@ def roll_dice_20(message):
     c5_d20=types.KeyboardButton('/5d20')
     c6_d20=types.KeyboardButton('/6d20')
     back_btn=types.KeyboardButton('/Main_Menu')
-    dice_list=types.KeyboardButton('/dice')
+    dice_list=types.KeyboardButton('/dices')
     d20_keyboard.add(c1_d20,c2_d20,c3_d20,c4_d20,c5_d20,c6_d20,dice_list,back_btn)
     bot.send_message(message.chat.id, data.TEXT_ASK,reply_markup=d20_keyboard)
 

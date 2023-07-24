@@ -1,6 +1,4 @@
-BOT_VERSION = '0.5.5'
-
-TEXT_START=f"Hello <b>human</b>, im <b>HAL - {BOT_VERSION}</b>"
+BOT_VERSION = '0.5.6 BJ'
 
 TEXT_ASK = """
 Choose the action you need 
@@ -25,12 +23,13 @@ Please <b>/start</b> me again!
 TEXT_HELP="""
 List of main commands:
 /Main_Menu - open the main menu
-/dice - list of dice
-/anima - list of animations
+/dices - list of dice
+/games - games list
 /picture - list of pictures
 /link - message with links
 /stiker - send a sticker
-/creator - about the creator
+/settings - efit to settings menu
+/about - about developer
 """
 
 TEXT_SETTINGS="""
@@ -48,11 +47,9 @@ Weclome to BlackJack!
 """
 
 TEXT_BlackJack_BET="""
-wou want update bet?
-/-100
-/-50
-/+50
-/+100
+You want update bet?
+/-100 | /-50
+/+50  | /+100
 """
 
 TEXT_GIF_COMMENT="IT RUN!"
@@ -165,7 +162,6 @@ Shalom
 My names is V, and i created this chatbot
 if you have a questions, you can text me @valens54
 Also you can see all source files on my GitHub
-https://github.com/V-54/HAL
 live long and prosper 🖖
 """
 TEXT_UNKNOWN="""I did not understand your request
