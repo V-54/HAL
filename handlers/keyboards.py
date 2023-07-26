@@ -209,7 +209,7 @@ def language_keyboard_set(message):
     back_btn=types.KeyboardButton('/Main_Menu')
     language_keayboard.add(Ru_language_btn,En_language_btn,settings_btn,back_btn)
     bot.send_message(message.chat.id,
-                     f"Do you want to chang it?",reply_markup=language_keayboard)
+                    "Do you want to chang it?",reply_markup=language_keayboard)
 
 def register_keyboards(bot):
     bot.register_message_handler(main_keyboard_set, commands = ['Main_Menu'])

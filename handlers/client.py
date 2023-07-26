@@ -1,13 +1,13 @@
-import telebot
 from telebot import types
 from loguru import logger
 
 from create_bot import bot
 from Data import data
-from base import check_user_language, add_user, change_user_language, user_language
+from base import check_user_language, add_user, change_user_language
 
 logger.add('Log/users.log', format = '{time}  {level}  {message}',level = 'DEBUG')
 
+# TODO нужно провести полный рефакторинг названий функций в коде
 def start_message(message):
     check_user_language(message)
     bot.delete_message(message.chat.id, message.message_id)

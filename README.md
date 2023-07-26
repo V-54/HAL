@@ -3,6 +3,10 @@
 ### Description
 
 HAL 5500 is a Telegram bot that can perform various tasks such as searching for information on Wikipedia, rolling dice, sending images and stickers, and providing information about the creator of the bot.
+<!--
+TODO нужно полностью обновить и актуализировать разделы устновки и функционала бота
+можно добавить гифки и улучшить оформление файла в целом
+-->
 
 ## INSTALLATION
 

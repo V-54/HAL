@@ -47,6 +47,7 @@ def get_hand_val(hand):
             val += int(card[0])
     return val
 
+# TODO нужно обновить способ добора карт, можно реализовать это через inlinekeyboard
 def hit_me(hand, cards):
     hit, cards = deal_card(cards)
     hand.append(hit)
@@ -94,42 +95,30 @@ def check_player_score(message):
     bot.delete_message(message.chat.id, message.message_id)
     bot.send_message(message.chat.id,f"You have <b>{score} $</b>", parse_mode='html')
 
-# def check_player_bet(message):
-#     bet = check_bet(message)
-#     bot.delete_message(message.chat.id, message.message_id)
-#     bot.send_message(message.chat.id,f"You bet = <b>{bet}$</b>", parse_mode='html')
-
 # TODO переписать алгоритм изменения ставки на универсальный
-def plus_50_bet(message):
-    bet = check_bet(message) + 50
+def update_bet_amount(message, amount):
+    bet = check_bet(message) + amount
     bot.delete_message(message.chat.id, message.message_id)
-    update_bet(message,bet)
-    bot.send_message(message.chat.id,f"You bet = <b>{check_bet(message)} 🫥</b>", parse_mode='html')
+    update_bet(message, bet)
+    bot.send_message(message.chat.id, f"You bet = <b>{check_bet(message)} 🫥</b>", parse_mode='html')
+
+def plus_50_bet(message):
+    update_bet_amount(message, +50)
 
 def plus_100_bet(message):
-    bet = check_bet(message) + 100
-    bot.delete_message(message.chat.id, message.message_id)
-    update_bet(message,bet)
-    bot.send_message(message.chat.id,f"You bet = <b>{check_bet(message)} 🫥</b>", parse_mode='html')
+    update_bet_amount(message, +100)
 
 def minus_50_bet(message):
-    bet = check_bet(message) - 50
-    bot.delete_message(message.chat.id, message.message_id)
-    update_bet(message,bet)
-    bot.send_message(message.chat.id,f"You bet = <b>{check_bet(message)} 🫥</b>", parse_mode='html')
+    update_bet_amount(message, -50)
 
 def minus_100_bet(message):
-    bet = check_bet(message) - 100
-    bot.delete_message(message.chat.id, message.message_id)
-    update_bet(message,bet)
-    bot.send_message(message.chat.id,f"You bet = <b>{check_bet(message)} 🫥</b>", parse_mode='html')
-
+    update_bet_amount(message, -100)
 
 def play_blackjack(message):
     bot.delete_message(message.chat.id, message.message_id)
     score = check_score(message)
     bet = check_bet(message)
-    if bet < 0 or bet > score:
+    if bet < 0 or bet > score and score > 0:
         bot.send_message(message.chat.id,'Please, change you bet to start')
     else:
         if score >0:
@@ -160,5 +149,5 @@ def register_handlers_blackjack(bot):
     bot.register_message_handler(plus_50_bet, commands = ['+50'])
     bot.register_message_handler(plus_100_bet, commands = ['+100'])
     bot.register_message_handler(minus_50_bet, commands = ['-50'])
-    bot.register_message_handler(minus_100_bet, commands = ['-100'])
+    bot.register_message_handler(minus_100_bet, commands = ['-100']) 
     #bot.register_message_handler(play_blackjack, commands = ['Play_BJ'])
